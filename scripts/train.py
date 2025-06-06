@@ -36,6 +36,8 @@ import shutil
 from pathlib import Path
 
 
+# On copie le fichier config dans config_copy
+# pour que les modifications faites dans config.py n'impactent pas le run en cours.
 def copy_configuration_file():
     base_dir = Path(__file__).resolve().parents[1]
     shutil.copyfile(

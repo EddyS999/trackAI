@@ -7,8 +7,7 @@
   <strong>[TrackAI documentation][doc-link]</strong>
   <br>
   <br>
-  [![Discord][doc-badge]][doc-link]
-  [![Discord][discord-badge]][discord-link]
+
 
 </div>
 
