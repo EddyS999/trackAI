@@ -28,7 +28,7 @@ from config_files.user_config import *
 W_downsized = 160
 H_downsized = 120
 
-run_name = "training_1"
+run_name = "A01_RACE"
 running_speed = 80
 
 tm_engine_step_per_action = 5
@@ -264,6 +264,8 @@ map_cycle = []
 # map_cycle.append(repeat((short_map_name, f'"Official Maps\{map_name}.Challenge.Gbx"', f"{map_name}_0.5m_cl2.npy", False, True), 1))
 
 
+#gestion de la politique e-greedy / boltzman 
+#explications : tous les 5 runs, l'agent va alterner entre 4 runs exploratoires et 1 run d'évaluation.
 map_cycle += [
     # repeat(("map5", '"My Challenges/Map5.Challenge.Gbx"', "map5_0.5m_cl.npy", True, True), 4),
     # repeat(("map5", '"My Challenges/Map5.Challenge.Gbx"', "map5_0.5m_cl.npy", False, True), 1),
@@ -287,10 +289,19 @@ map_cycle += [
     # repeat(("B03", '"Official Maps\Green\B03-Race.Challenge.Gbx"', "B03-Race_10m_cl.npy", False, True), 1),
     # repeat(("B05", '"Official Maps\Green\B05-Race.Challenge.Gbx"', "B05-Race_10m_cl.npy", True, True), 4),
     # repeat(("B05", '"Official Maps\Green\B05-Race.Challenge.Gbx"', "B05-Race_10m_cl.npy", False, True), 1),
-    repeat(("hock", "ESL-Hockolicious.Challenge.Gbx",
-           "ESL-Hockolicious_0.5m_cl2.npy", True, True), 4),
-    repeat(("hock", "ESL-Hockolicious.Challenge.Gbx",
-           "ESL-Hockolicious_0.5m_cl2.npy", False, True), 1),
+    
+    # repeat(("hock", "ESL-Hockolicious.Challenge.Gbx",
+    #        "ESL-Hockolicious_0.5m_cl2.npy", True, True), 4),
+    # repeat(("hock", "ESL-Hockolicious.Challenge.Gbx",
+    #        "ESL-Hockolicious_0.5m_cl2.npy", False, True), 1),
+
+    #On enregistre les transitions dans le buffer et on explore sur 4 runs.
+    repeat(("WHI",'"A01-Race.Challenge.Gbx"', 
+            "A01_0.5m_.npy", True, True),4), 
+    #On évalue le run sur 1 run tout en enregistrant toujours les transitions dans le buffer.
+    repeat(("WHI",'"A01-Race.Challenge.Gbx"', 
+            "A01_0.5m_.npy", False, True),1), 
+
     # repeat(("A02", f'"Official Maps\A02-Race.Challenge.Gbx"', "A02-Race_0.5m_cl2.npy", False, False), 1),
     # repeat(("yellowmile", f'"The Yellow Mile_.Challenge.Gbx"', "YellowMile_0.5m_cl.npy", False, False), 1),
     # repeat(("te86", f'"te 86.Challenge.Gbx"', "te86_0.5m_cl.npy", False, False), 1),

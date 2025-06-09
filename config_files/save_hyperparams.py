@@ -14,8 +14,7 @@ def copy_configuration_file():
     )
 
 
-if __name__ == "__main__":
-    copy_configuration_file()
+
 
 def save_hyperparams(config_mod, save_dir):
     # Récupère tous les attributs publics (pas de __ ou fonctions)
@@ -31,7 +30,7 @@ def save_hyperparams(config_mod, save_dir):
     print(f"Hyper-paramètres sauvegardés dans : {outfile}")
 
 # juste après l’appel copy_configuration_file() ou après import config_copy
-# …
+base_dir = Path(__file__).resolve().parents[1]
 save_dir = base_dir / "save" / config_copy.run_name
 save_dir.mkdir(parents=True, exist_ok=True)
 

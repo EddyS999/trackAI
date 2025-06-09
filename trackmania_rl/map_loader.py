@@ -9,6 +9,14 @@ import numpy.typing as npt
 from pygbx import Gbx, GbxType
 from scipy.interpolate import make_interp_spline
 
+import re
+
+# Python ne sait pas importer les modules du dossier parent, donc on ajoute le dossier parent au sys.path
+# idiot de python, mais c'est comme ça
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
+
+
 from config_files import config_copy
 
 
@@ -89,10 +97,31 @@ def densify_raw_pos_list_n_times(raw_pos_list: List[npt.NDArray], n: int):
     return list(interpolation_function(range(0, n * len(raw_pos_list))))
 
 
-def map_name_from_map_path(map_path):
-    gbx = Gbx(str(config_copy.trackmania_base_path / "Tracks" / "Challenges" / Path(map_path.strip("'\""))))
-    gbx_challenge = gbx.get_class_by_id(GbxType.CHALLENGE)
-    return gbx_challenge.map_name
+def _strip_colors(s: str) -> str:
+    return re.sub(r"\$[0-9A-Fa-f]{3}", "", s)
+
+def map_name_from_map_path(map_path: str) -> str:
+    full_path = (
+        config_copy.trackmania_base_path
+        / "Tracks" / "Challenges"
+        / Path(map_path.strip("'\""))
+    )
+
+    gbx = Gbx(str(full_path))
+    ch  = gbx.get_class_by_id(GbxType.CHALLENGE)
+
+    if ch and getattr(ch, "map_name", None):
+        # Ex : "$fffESL$000-$666Hockolicious" → "ESL-Hockolicious"
+        return _strip_colors(ch.map_name)
+
+    # -- Fallback : on renvoie le nom de fichier sans extension
+    return _strip_colors(full_path.stem)
+
+
+# def map_name_from_map_path(map_path):
+#     gbx = Gbx(str(config_copy.trackmania_base_path / "Tracks" / "Challenges" / Path(map_path.strip("'\""))))
+#     gbx_challenge = gbx.get_class_by_id(GbxType.CHALLENGE)
+#     return gbx_challenge.map_name
 
 
 def replay_personal_record(map_path):
