@@ -1,0 +1,333 @@
+{
+  "H_downsized": 120,
+  "Path": "<class 'pathlib.Path'>",
+  "W_downsized": 160,
+  "action_backward_idx": 6,
+  "action_forward_idx": 0,
+  "adam_beta1": 0.9,
+  "adam_beta2": 0.999,
+  "adam_epsilon": 0.0001,
+  "additional_transition_after_reset": 1600000,
+  "apply_randomcrop_augmentation": false,
+  "base_tmi_port": 8478,
+  "batch_size": 512,
+  "buffer_test_ratio": 0.05,
+  "clip_grad_norm": 30,
+  "clip_grad_value": 1000,
+  "constant_reward_per_ms": -0.0012,
+  "conv_head_output_dim": 5632,
+  "cutoff_rollout_if_no_vcp_passed_within_duration_ms": 2000,
+  "cutoff_rollout_if_race_not_finished_within_duration_ms": 300000,
+  "deck_height": -Infinity,
+  "dense_hidden_dimension": 1024,
+  "discard_non_greedy_actions_in_nsteps": true,
+  "distance_between_checkpoints": 0.5,
+  "engineered_close_to_vcp_reward_schedule": [
+    [
+      0,
+      0
+    ]
+  ],
+  "engineered_kamikaze_reward_schedule": [
+    [
+      0,
+      0
+    ]
+  ],
+  "engineered_neoslide_reward_schedule": [
+    [
+      0,
+      0
+    ]
+  ],
+  "engineered_reward_max_dist_to_cur_vcp": 25,
+  "engineered_reward_min_dist_to_cur_vcp": 5,
+  "engineered_speedslide_reward_schedule": [
+    [
+      0,
+      0
+    ]
+  ],
+  "epsilon_boltzmann_schedule": [
+    [
+      0,
+      0.15
+    ],
+    [
+      3000000,
+      0.03
+    ]
+  ],
+  "epsilon_schedule": [
+    [
+      0,
+      1
+    ],
+    [
+      50000,
+      1
+    ],
+    [
+      300000,
+      0.1
+    ],
+    [
+      3000000,
+      0.03
+    ]
+  ],
+  "final_speed_reward_as_if_duration_s": 0,
+  "final_speed_reward_per_m_per_s": 0.0,
+  "float_hidden_dim": 256,
+  "float_input_dim": 184,
+  "float_inputs_mean": "[ 7.00e+01  8.00e-01  2.00e-01  3.00e-01  3.00e-01  8.00e-01  2.00e-01\n  3.00e-01  3.00e-01  8.00e-01  2.00e-01  3.00e-01  3.00e-01  8.00e-01\n  2.00e-01  3.00e-01  3.00e-01  8.00e-01  2.00e-01  3.00e-01  3.00e-01\n  1.00e-01  1.00e-01  1.00e-01  1.00e-01  9.00e-01  9.00e-01  9.00e-01\n  9.00e-01  2.00e-02  2.00e-02  2.00e-02  2.00e-02  3.00e-01  2.50e+00\n  7.00e+03  1.00e-01  5.00e-01  5.00e-01  5.00e-01  5.00e-01  5.00e-01\n  5.00e-01  5.00e-01  5.00e-01  5.00e-01  5.00e-01  5.00e-01  5.00e-01\n  5.00e-01  5.00e-01  5.00e-01  5.00e-01  0.00e+00  0.00e+00  0.00e+00\n  0.00e+00  0.00e+00  5.50e+01  0.00e+00  1.00e+00  0.00e+00  0.00e+00\n -2.10e+00 -2.00e-01  0.00e+00 -2.20e+00  9.50e+00  0.00e+00 -2.20e+00\n  1.91e+01  0.00e+00 -2.20e+00  2.85e+01  0.00e+00 -2.20e+00  3.77e+01\n  0.00e+00 -2.10e+00  4.66e+01  0.00e+00 -2.00e+00  5.52e+01  0.00e+00\n -1.80e+00  6.35e+01  0.00e+00 -1.50e+00  7.14e+01  0.00e+00 -1.30e+00\n  7.89e+01  0.00e+00 -1.00e+00  8.62e+01  0.00e+00 -7.00e-01  9.31e+01\n  0.00e+00 -4.00e-01  9.98e+01  0.00e+00 -0.00e+00  1.06e+02  0.00e+00\n  3.00e-01  1.12e+02  0.00e+00  7.00e-01  1.18e+02  0.00e+00  1.10e+00\n  1.24e+02  0.00e+00  1.60e+00  1.29e+02  0.00e+00  2.10e+00  1.34e+02\n  0.00e+00  2.60e+00  1.39e+02  0.00e+00  3.10e+00  1.43e+02  0.00e+00\n  3.70e+00  1.48e+02  0.00e+00  4.20e+00  1.52e+02  0.00e+00  4.80e+00\n  1.56e+02  0.00e+00  5.30e+00  1.60e+02  0.00e+00  5.80e+00  1.64e+02\n  0.00e+00  6.40e+00  1.67e+02  0.00e+00  6.90e+00  1.71e+02  0.00e+00\n  7.40e+00  1.74e+02  0.00e+00  7.80e+00  1.77e+02  0.00e+00  8.30e+00\n  1.80e+02  0.00e+00  8.70e+00  1.82e+02  0.00e+00  9.10e+00  1.85e+02\n  0.00e+00  9.50e+00  1.87e+02  0.00e+00  9.90e+00  1.89e+02  0.00e+00\n  1.02e+01  1.91e+02  0.00e+00  1.06e+01  1.93e+02  0.00e+00  1.09e+01\n  1.94e+02  0.00e+00  1.12e+01  1.96e+02  0.00e+00  1.15e+01  1.97e+02\n  7.00e+02  0.00e+00]",
+  "float_inputs_std": "[7.00e+01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01\n 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01\n 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01\n 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 6.00e-02 6.00e-02 6.00e-02\n 6.00e-02 1.00e+00 2.00e+00 3.00e+03 1.00e+01 5.00e-01 5.00e-01 5.00e-01\n 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01\n 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 5.00e-01 1.00e+00 5.00e-01\n 5.00e+00 5.00e+00 2.00e+01 5.00e-01 5.00e-01 5.00e-01 7.70e+00 7.70e+00\n 2.90e+00 7.80e+00 7.80e+00 3.30e+00 8.30e+00 8.30e+00 4.10e+00 9.50e+00\n 9.50e+00 5.10e+00 1.15e+01 1.15e+01 6.40e+00 1.43e+01 1.43e+01 7.90e+00\n 1.78e+01 1.78e+01 9.70e+00 2.19e+01 2.19e+01 1.17e+01 2.63e+01 2.63e+01\n 1.42e+01 3.11e+01 3.11e+01 1.70e+01 3.61e+01 3.61e+01 2.01e+01 4.13e+01\n 4.13e+01 2.35e+01 4.66e+01 4.66e+01 2.72e+01 5.20e+01 5.20e+01 3.11e+01\n 5.74e+01 5.74e+01 3.52e+01 6.30e+01 6.30e+01 3.94e+01 6.85e+01 6.85e+01\n 4.37e+01 7.42e+01 7.42e+01 4.81e+01 7.99e+01 7.99e+01 5.25e+01 8.56e+01\n 8.56e+01 5.70e+01 9.14e+01 9.14e+01 6.14e+01 9.72e+01 9.72e+01 6.58e+01\n 1.03e+02 1.03e+02 7.02e+01 1.09e+02 1.09e+02 7.46e+01 1.15e+02 1.15e+02\n 7.91e+01 1.21e+02 1.21e+02 8.35e+01 1.27e+02 1.27e+02 8.80e+01 1.32e+02\n 1.32e+02 9.26e+01 1.38e+02 1.38e+02 9.72e+01 1.44e+02 1.44e+02 1.02e+02\n 1.49e+02 1.49e+02 1.07e+02 1.55e+02 1.55e+02 1.12e+02 1.60e+02 1.60e+02\n 1.17e+02 1.66e+02 1.66e+02 1.21e+02 1.71e+02 1.71e+02 1.26e+02 1.76e+02\n 1.76e+02 1.31e+02 1.82e+02 1.82e+02 1.36e+02 1.87e+02 1.87e+02 1.41e+02\n 1.92e+02 1.92e+02 1.46e+02 1.98e+02 1.98e+02 1.51e+02 3.50e+02 1.00e+00]",
+  "frames_before_save_best_runs": 1500000,
+  "game_camera_number": 2,
+  "game_reboot_interval": 43200,
+  "gamma_schedule": [
+    [
+      0,
+      0.999
+    ],
+    [
+      1500000,
+      0.999
+    ],
+    [
+      2500000,
+      1
+    ]
+  ],
+  "global_schedule_speed": 1,
+  "gpu_collectors_count": 1,
+  "inputs": [
+    {
+      "left": false,
+      "right": false,
+      "accelerate": true,
+      "brake": false
+    },
+    {
+      "left": true,
+      "right": false,
+      "accelerate": true,
+      "brake": false
+    },
+    {
+      "left": false,
+      "right": true,
+      "accelerate": true,
+      "brake": false
+    },
+    {
+      "left": false,
+      "right": false,
+      "accelerate": false,
+      "brake": false
+    },
+    {
+      "left": true,
+      "right": false,
+      "accelerate": false,
+      "brake": false
+    },
+    {
+      "left": false,
+      "right": true,
+      "accelerate": false,
+      "brake": false
+    },
+    {
+      "left": false,
+      "right": false,
+      "accelerate": false,
+      "brake": true
+    },
+    {
+      "left": true,
+      "right": false,
+      "accelerate": false,
+      "brake": true
+    },
+    {
+      "left": false,
+      "right": true,
+      "accelerate": false,
+      "brake": true
+    },
+    {
+      "left": false,
+      "right": false,
+      "accelerate": true,
+      "brake": true
+    },
+    {
+      "left": true,
+      "right": false,
+      "accelerate": true,
+      "brake": true
+    },
+    {
+      "left": false,
+      "right": true,
+      "accelerate": true,
+      "brake": true
+    }
+  ],
+  "iqn_embedding_dimension": 64,
+  "iqn_k": 32,
+  "iqn_kappa": 0.005,
+  "iqn_n": 8,
+  "is_linux": false,
+  "last_layer_reset_factor": 0.8,
+  "linux_launch_game_path": "path_to_be_filled_only_if_on_linux",
+  "lr_schedule": [
+    [
+      0,
+      0.001
+    ],
+    [
+      3000000,
+      5e-05
+    ],
+    [
+      12000000,
+      5e-05
+    ],
+    [
+      15000000,
+      1e-05
+    ]
+  ],
+  "make_highest_prio_figures": false,
+  "map_cycle": [
+    "repeat(('WHI', '\"A01-Race.Challenge.Gbx\"', 'A01_0.5m_.npy', True, True), 4)",
+    "repeat(('WHI', '\"A01-Race.Challenge.Gbx\"', 'A01_0.5m_.npy', False, True), 1)"
+  ],
+  "margin_to_announce_finish_meters": 700,
+  "max_allowable_distance_to_virtual_checkpoint": 45.00069443908616,
+  "max_rollout_queue_size": 1,
+  "memory_size_schedule": [
+    [
+      0,
+      [
+        50000,
+        20000
+      ]
+    ],
+    [
+      5000000,
+      [
+        100000,
+        75000
+      ]
+    ],
+    [
+      7000000,
+      [
+        200000,
+        150000
+      ]
+    ]
+  ],
+  "min_horizon_to_update_priority_actions": 100,
+  "ms_per_action": 50,
+  "ms_per_tm_engine_step": 10,
+  "n_contact_material_physics_behavior_types": 4,
+  "n_pixels_to_crop_on_each_side": 2,
+  "n_prev_actions_in_inputs": 5,
+  "n_steps": 3,
+  "n_transitions_to_plot_in_distribution_curves": 1000,
+  "n_zone_centers_extrapolate_after_end_of_map": 1000,
+  "n_zone_centers_extrapolate_before_start_of_map": 20,
+  "n_zone_centers_in_inputs": 40,
+  "nadeo_maps_to_train_and_test": [
+    "A01-Race",
+    "A03-Race",
+    "A05-Race",
+    "A07-Race",
+    "A11-Race",
+    "A14-Race",
+    "A15-Speed",
+    "B01-Race",
+    "B02-Race",
+    "B03-Race",
+    "B05-Race",
+    "B10-Speed",
+    "B14-Speed"
+  ],
+  "number_memories_trained_on_between_target_network_updates": 2048,
+  "number_times_single_memory_is_used_before_discard": 32,
+  "one_every_n_zone_centers_in_inputs": 20,
+  "overall_reset_mul_factor": 0.01,
+  "oversample_long_term_steps": 40,
+  "oversample_maximum_term_steps": 5,
+  "platform": "win32",
+  "plot_race_time_left_curves": false,
+  "prio_alpha": "0.0",
+  "prio_beta": "1.0",
+  "prio_epsilon": "0.002",
+  "repeat": "<class 'itertools.repeat'>",
+  "reset_every_n_frames_generated": 40000000000000,
+  "reward_per_m_advanced_along_centerline": 0.01,
+  "road_width": 90,
+  "run_name": "A01_RACE",
+  "running_speed": 80,
+  "send_shared_network_every_n_batches": 10,
+  "shaped_reward_dist_to_cur_vcp": -0.1,
+  "shaped_reward_max_dist_to_cur_vcp": 25,
+  "shaped_reward_min_dist_to_cur_vcp": 2,
+  "shaped_reward_point_to_vcp_ahead": 0,
+  "single_reset_flag": 0,
+  "soft_update_tau": 0.02,
+  "sync_virtual_and_real_checkpoints": true,
+  "target_python_link_path": "C:\\Users\\User\\Documents\\TMInterface\\Plugins\\Python_Link.as",
+  "target_self_loss_clamp_ratio": 4,
+  "tau_epsilon_boltzmann": 0.01,
+  "temporal_mini_race_duration_actions": 140,
+  "temporal_mini_race_duration_ms": 7000,
+  "tensorboard_suffix_schedule": [
+    [
+      0,
+      ""
+    ],
+    [
+      6000000,
+      "_2"
+    ],
+    [
+      15000000,
+      "_3"
+    ],
+    [
+      30000000,
+      "_4"
+    ],
+    [
+      45000000,
+      "_5"
+    ],
+    [
+      80000000,
+      "_6"
+    ],
+    [
+      150000000,
+      "_7"
+    ]
+  ],
+  "threshold_to_save_all_runs_ms": -1,
+  "timeout_between_runs_ms": 600000000,
+  "timeout_during_run_ms": 10100,
+  "tm_engine_step_per_action": 5,
+  "tmi_protection_timeout_s": 500,
+  "trackmania_base_path": "C:\\Users\\User\\Documents\\TmForever",
+  "update_inference_network_every_n_actions": 20,
+  "use_ddqn": false,
+  "use_jit": true,
+  "username": "akirastroworld",
+  "weight_decay_lr_ratio": 0.02,
+  "windows_TMLoader_path": "C:\\Users\\User\\AppData\\Local\\TMLoader\\TMLoader.exe",
+  "windows_TMLoader_profile_name": "default"
+}

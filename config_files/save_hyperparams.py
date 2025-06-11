@@ -1,6 +1,8 @@
 # ------------------------------------------------------------------
 #  Sauvegarde des hyperparamètres du run dans un fichier texte/json
 # ------------------------------------------------------------------
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 import json, inspect, datetime
 from config_files import config_copy
 import shutil
@@ -12,8 +14,6 @@ def copy_configuration_file():
         base_dir / "config_files" / "config.py",
         base_dir / "config_files" / "config_copy.py",
     )
-
-
 
 
 def save_hyperparams(config_mod, save_dir):
