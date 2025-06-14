@@ -22,11 +22,7 @@ trackmania_base_path = Path(os.path.expanduser("~")) / "Documents" / "TmForever"
 # If using multiple instances, the ports used will be base_tmi_port + 1, +2, +3, etc...
 base_tmi_port = 8478
 
-# If on Linux, path of a shell script that launches the game, with the TMInterface port as first argument
-linux_launch_game_path = "path_to_be_filled_only_if_on_linux"
 
-# If on windows, path where TMLoader can be found.
-# Usually Path(os.path.expanduser("~") / "AppData" / "Local" / "TMLoader" / "TMLoader.exe"
 windows_TMLoader_path = Path(os.path.expanduser("~")) / "AppData" / "Local" / "TMLoader" / "TMLoader.exe"
 
 # If on windows, name of the TMLoader profile that with launch TmForever + TMInterface

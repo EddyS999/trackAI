@@ -2,19 +2,21 @@
 import os
 import time
 import random
+import numpy as np
 from pathlib import Path
 from datetime import datetime
 
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 
-from trackmania_rl.replay_utils import check_replay_vs_map, get_replay_and_map_data
+from trackmania_rl.replay_utils import check_replay_vs_map, get_replay_and_map_data, load_ghost_positions
 
 # ------------------------------------------------------------------------------------
 #  Configuration
@@ -161,6 +163,66 @@ if run_it:
             # 6c) Heatmap ou distribution des vitesses (optionnel)
             # … à ajouter ici si vous avez les données de speed
 
+            # 6d) Trajectoire superposée sur plan 2D
+            st.subheader("📍 Trajectoire sur la map (vue X–Z)")
+            vcp = np.load(vcp_path)          # shape (M,3)
+                # charger positions joueur / agent
+            pos_j = load_ghost_positions(replay_path)[:, [0,2]]
+
+            if ref_files:
+                pos_a = load_ghost_positions(str(ref_files[0]))[:, [0,2]]
+            else:
+                pos_a = None
+            
+            fig = go.Figure()
+
+            fig.add_trace(go.Scatter(
+                x=vcp[:,0], y=vcp[:,2],
+                mode="lines",
+                line=dict(color="gray", width=2),
+                name="VCP réf. agent",
+            ))
+
+            fig.add_trace(go.Scatter(
+                x=pos_j[:,0], y=pos_j[:,1],
+                mode="lines",
+                line=dict(color="red", width=2),
+                name="Traj. Joueur",
+                hovertemplate="x: %{x:.1f}  z: %{y:.1f}<extra></extra>",
+            ))
+
+            if pos_a is not None:
+                fig.add_trace(go.Scatter(
+                x=pos_a[:,0], y=pos_a[:,1],
+                mode="lines",
+                line=dict(color="blue", width=2, dash="dash"),
+                name="Traj. Agent",
+            ))
+
+            fig.update_layout(
+                xaxis_title="X (m)",
+                yaxis_title="Z (m)",
+                legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01),
+                margin=dict(l=20, r=20, t=30, b=20),
+                width=600,
+                height=600,
+            )
+            fig.update_yaxes(scaleanchor="x", scaleratio=1)  # rapport 1:1
+
+            st.plotly_chart(fig, use_container_width=True)
+
+
+            # pos_a = load_ghost_positions(str(ref_files[0]))[:, [0,2]]
+
+            # fig, ax = plt.subplots(figsize=(6,6))
+            #     # si tu as un screenshot : ax.imshow(img, extent=[xmin,xmax,zmin,zmax], alpha=0.5)
+            # ax.plot(vcp[:,0], vcp[:,2], color='gray', lw=2, label='Réf. agent')
+            # ax.plot(pos_j[:,0], pos_j[:,1], color='red',  lw=1, label='Joueur')
+            # ax.plot(pos_a[:,0], pos_a[:,1], color='blue', lw=1, label='Agent')
+            # ax.set_aspect('equal', 'box')
+            # ax.legend(loc='upper right')
+            # st.pyplot(fig)
+
             # ← 7) Affichage textuel résumé
             st.header("🏁 Résultats détaillés")
             col1, col2 = st.columns(2)
@@ -200,4 +262,4 @@ else:
     df = df.sort_values("upload_time")
     st.line_chart(df.set_index("upload_time")["race_time"] / 1000)
 
-st.caption("🔧 Prototype – adaptez ces graphiques à vos données réelles !")
+st.caption("🔧 Prototype - v.0.0.1")
