@@ -8,13 +8,6 @@ from config_files import config_copy
 import shutil
 from pathlib import Path
 
-def copy_configuration_file():
-    base_dir = Path(__file__).resolve().parents[1]
-    shutil.copyfile(
-        base_dir / "config_files" / "config.py",
-        base_dir / "config_files" / "config_copy.py",
-    )
-
 
 def save_hyperparams(config_mod, save_dir):
     # Récupère tous les attributs publics (pas de __ ou fonctions)

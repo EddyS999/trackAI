@@ -7,7 +7,7 @@ from scipy.spatial import cKDTree
 Fonctions utilitaires pour charger les données d'un replay Trackmania 
 
 Issue #1 :
-Il est impossible d'identifier une carte via son replay.
+Il est impossible d'identifier une carte via son fichier replay.
 La méthode la plus efficace que j'ai trouvée est de charger les positions du ghost
 et de les comparer à un VCP (Virtual Checkpoint) de la carte. 
 si la distance moyenne entre les positions du ghost et celles du VCP est inférieure

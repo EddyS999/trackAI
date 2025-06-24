@@ -28,7 +28,7 @@ from config_files.user_config import *
 W_downsized = 160
 H_downsized = 120
 
-run_name = "A01_RACE"
+run_name = "A02_RACE"
 running_speed = 80
 
 tm_engine_step_per_action = 5
@@ -226,7 +226,7 @@ map_cycle = [
 
 nadeo_maps_to_train_and_test = [
     "A01-Race",
-    # "A02-Race",
+    "A02-Race",
     "A03-Race",
     # "A04-Acrobatic",
     "A05-Race",
@@ -296,11 +296,11 @@ map_cycle += [
     #        "ESL-Hockolicious_0.5m_cl2.npy", False, True), 1),
 
     #On enregistre les transitions dans le buffer et on explore sur 4 runs.
-    repeat(("WHI",'"A01-Race.Challenge.Gbx"', 
-            "A01_0.5m_.npy", True, True),4), 
+    repeat(("A02",'"A02-Race.Challenge.Gbx"', 
+            "A02_0.5m_.npy", True, True),4), 
     #On évalue le run sur 1 run tout en enregistrant toujours les transitions dans le buffer.
-    repeat(("WHI",'"A01-Race.Challenge.Gbx"', 
-            "A01_0.5m_.npy", False, True),1), 
+    repeat(("A02",'"A02-Race.Challenge.Gbx"', 
+            "A02_0.5m_.npy", False, True),1), 
 
     # repeat(("A02", f'"Official Maps\A02-Race.Challenge.Gbx"', "A02-Race_0.5m_cl2.npy", False, False), 1),
     # repeat(("yellowmile", f'"The Yellow Mile_.Challenge.Gbx"', "YellowMile_0.5m_cl.npy", False, False), 1),
