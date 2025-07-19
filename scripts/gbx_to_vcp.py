@@ -1,3 +1,13 @@
+
+"""
+Ce fichier contient un script pour convertir des fichiers GBX en listes de positions brutes.
+Il utilise la bibliothèque `trackmania_rl` pour extraire les positions et les distances des checkpoints
+et les enregistre dans un format exploitable.
+Il est conçu pour être exécuté en ligne de commande avec un argument spécifiant le chemin du fichier GBX.
+Il est utile pour préparer des données de cartes Trackmania pour l'entraînement d'agents d'apprentissage automatique.
+Il extrait également les intervalles de distance des checkpoints pour une utilisation ultérieure.
+"""
+
 import argparse
 from pathlib import Path
 from trackmania_rl.geometry import extract_cp_distance_interval

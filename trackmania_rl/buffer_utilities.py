@@ -1,6 +1,5 @@
 """
-This file contains various utility functions used to manage replay buffers.
-This is where the magic of "mini-races" or "clipped horizon average reward" is handled.
+Un ensemble de fonctions utilitaires pour la gestion des tampons de mémoire de lagent 
 """
 
 import random
@@ -172,12 +171,6 @@ def buffer_collate_function(batch):
 
 
 class CustomPrioritizedSampler(PrioritizedSampler):
-    """
-    Custom Prioritized Sampler which implements a slightly modified behavior compared to torchrl's original implementation.
-
-    A memory's default priority is based on all memories' average priority,
-    instead of the maximum priority seen since the beginning of training.
-    """
 
     def __init__(
         self,
@@ -230,16 +223,7 @@ class CustomPrioritizedSampler(PrioritizedSampler):
         *,
         storage: None = None,
     ) -> None:
-        """Updates the priority of the data pointed by the index.
 
-        Args:
-            index (int or torch.Tensor): indexes of the priorities to be
-                updated.
-            priority (Number or torch.Tensor): new priorities of the
-                indexed elements.
-            storage (None): None
-
-        """
         if isinstance(index, INT_CLASSES):
             if not isinstance(priority, float):
                 if len(priority) != 1:

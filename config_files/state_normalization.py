@@ -2,8 +2,8 @@ import numpy as np
 
 float_inputs_mean = np.array(
     [
-        70,  # temporal_mini_race_duration_actions / 2
-        #######
+        70,  
+      
         0.8,
         0.2,
         0.3,
@@ -188,9 +188,9 @@ float_inputs_mean = np.array(
         0.00e00,
         1.15e01,
         1.97e02,
-        # ==================== END   40 CP =====================
-        700,  # margin_to_announce_finish_meters
-        0,  # is_freewheeling
+      
+        700,  
+        0,  
     ]
 )
 
@@ -249,18 +249,18 @@ float_inputs_std = np.array(
         0.5,
         0.5,
         0.5,
-        0.5,  # Wheel contact material types
+        0.5,  
         0.5,
         1,
-        0.5,  # Angular velocity
-        #######
+        0.5,  
+    
         5,
         5,
         20,
         0.5,
         0.5,
         0.5,
-        # ==================== BEGIN 40 CP =====================
+     
         7.70e00,
         7.70e00,
         2.90e00,
@@ -381,8 +381,7 @@ float_inputs_std = np.array(
         1.98e02,
         1.98e02,
         1.51e02,
-        # ==================== END   40 CP =====================
-        350,  # margin_to_announce_finish_meters / 2
-        1,  # is_freewheeling
+        350,  
+        1, 
     ]
 )

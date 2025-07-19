@@ -1,5 +1,9 @@
 """
-This file implements the main training loop, tensorboard statistics tracking, etc...
+partie centrale du code pour le processus d'apprentissage dans Trackmania RL.
+Il gère l'entraînement du réseau de neurones, la mise à jour des poids, le remplissage du buffer de mémoire,
+et la communication avec les processus de collecte.
+Il utilise des techniques d'apprentissage par renforcement pour optimiser les performances de l'agent Trackmania.
+Il est conçu pour être exécuté en tant que processus séparé dans un environnement multiprocessus.
 """
 
 import copy
@@ -49,25 +53,7 @@ def learner_process_fn(
     SummaryWriter(log_dir=str(tensorboard_base_dir / layout_version)).add_custom_scalars(
         {
             layout_version: {
-                # "eval_agg_ratio": [
-                #     "Multiline",
-                #     [
-                #         "eval_agg_ratio_trained_author",
-                #         "eval_agg_ratio_blind_author",
-                #     ],
-                # ],
-                # "eval_ratio_trained_author": [
-                #     "Multiline",
-                #     [
-                #         "eval_ratio_trained_author",
-                #     ],
-                # ],
-                # "eval_ratio_blind_author": [
-                #     "Multiline",
-                #     [
-                #         "eval_ratio_blind_author",
-                #     ],
-                # ],
+
                 "eval_race_time_robust": [
                     "Multiline",
                     [
@@ -108,9 +94,7 @@ def learner_process_fn(
         }
     )
 
-    # ========================================================
-    # Create new stuff
-    # ========================================================
+
 
     online_network, uncompiled_online_network = make_untrained_iqn_network(config_copy.use_jit, is_inference=False)
     target_network, _ = make_untrained_iqn_network(config_copy.use_jit, is_inference=False)
@@ -129,10 +113,7 @@ def learner_process_fn(
     time_training_since_last_tensorboard_write = 0
     time_testing_since_last_tensorboard_write = 0
 
-    # ========================================================
-    # Load existing stuff
-    # ========================================================
-    # noinspection PyBroadException
+
     try:
         online_network.load_state_dict(torch.load(f=save_dir / "weights1.torch", weights_only=False))
         target_network.load_state_dict(torch.load(f=save_dir / "weights2.torch", weights_only=False))

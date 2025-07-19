@@ -20,10 +20,7 @@ from config_files import config
 #       Load run into TMI
 # ===============================================================
 def write_actions_from_disk_in_tmi_format(infile_path: Path, outfile_path: Path):
-    """
-    Input : path to a file on disk containing a list of action indices.
-    Output: write a text file on disk containing the corresponding inputs, readable by TMI to load the replay
-    """
+
     write_actions_in_tmi_format(joblib.load(infile_path), outfile_path)
 
 

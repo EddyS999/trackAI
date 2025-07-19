@@ -1,7 +1,7 @@
 """
 Various neural network & scheduling utilities.
 """
-
+# From https://github.com/pfnet/pfrl/blob/2ad3d51a7a971f3fe7f2711f024be11642990d61/pfrl/utils/copy_param.py#L37
 import math
 import shutil
 from pathlib import Path
@@ -66,7 +66,7 @@ def linear_combination(a, b, alpha):
     return a
 
 
-# From https://github.com/pfnet/pfrl/blob/2ad3d51a7a971f3fe7f2711f024be11642990d61/pfrl/utils/copy_param.py#L37
+
 def soft_copy_param(target_link, source_link, tau):
     """Soft-copy parameters of a link to another link."""
     target_dict = target_link.state_dict()

@@ -1,20 +1,11 @@
-# =======================================================================================================================
-# Handle configuration file before running the actual content of train.py
-# =======================================================================================================================
+
 """
-Two files named "config.py" and "config_copy.py" coexist in the same folder.
-
-At the beginning of training, parameters are copied from config.py to config_copy.py
-During training, config_copy.py will be reloaded at regular time intervals.
-config_copy.py is NOT tracked with git, as it is essentially a temporary file.
-
-Training parameters modifications made during training in config_copy.py will be applied on the fly
-without losing the existing content of the replay buffer.
-
-The content of config.py may be modified after starting a run: it will have no effect on the ongoing run.
-This setup provides the possibility to:
-  1) Modify training parameters on the fly
-  2) Continue to code, use git, and modify config.py without impacting an ongoing run.
+Ce fichier est le point d'entrée pour l'entraînement d'un agent Trackmania.
+Il configure les processus d'entraînement et de collecte, gère les signaux d'interruption
+et initialise les paramètres nécessaires pour l'entraînement.
+Il utilise la bibliothèque `trackmania_rl` pour interagir avec le jeu et l'agent
+et gère la communication entre les différents processus.
+Il est conçu pour être exécuté en tant que script principal et gère la configuration
 """
 
 from trackmania_rl.multiprocess.learner_process import learner_process_fn
@@ -49,12 +40,9 @@ def copy_configuration_file():
 if __name__ == "__main__":
     copy_configuration_file()
 
-# =======================================================================================================================
-# Actual start of train.py, after copying config.py
-# =======================================================================================================================
 
 
-# noinspection PyUnresolvedReferences
+# On importe le fichier de configuration copié
 torch.backends.cudnn.benchmark = True
 torch.set_num_threads(1)
 torch.set_float32_matmul_precision("high")
@@ -93,7 +81,7 @@ if __name__ == "__main__":
     save_dir.mkdir(parents=True, exist_ok=True)
     tensorboard_base_dir = base_dir / "tensorboard"
 
-    # Copy Angelscript plugin to TMInterface dir
+
     shutil.copyfile(
         base_dir / "trackmania_rl" / "tmi_interaction" / "Python_Link.as",
         config_copy.target_python_link_path,
@@ -109,7 +97,7 @@ if __name__ == "__main__":
     if config_copy.is_linux:
         os.system(f"chmod +x {config_copy.linux_launch_game_path}")
 
-    # Prepare multi process utilities
+    
     shared_steps = mp.Value(ctypes.c_int64)
     shared_steps.value = 0
     rollout_queues = [mp.Queue(config_copy.max_rollout_queue_size)
@@ -120,7 +108,7 @@ if __name__ == "__main__":
         jit=config_copy.use_jit, is_inference=False)
     uncompiled_shared_network.share_memory()
 
-    # Start worker process
+
     collector_processes = [
         mp.Process(
             target=collector_process_fn,
@@ -140,13 +128,12 @@ if __name__ == "__main__":
     for collector_process in collector_processes:
         collector_process.start()
 
-    # Start learner process
+   
     learner_process_fn(
         rollout_queues, uncompiled_shared_network, shared_network_lock, shared_steps, base_dir, save_dir, tensorboard_base_dir
-    )  # Turn main process into learner process instead of starting a new one, this saves 1 CUDA context
+    )  
 
     for collector_process in collector_processes:
         collector_process.join()
 
 
-# https://stackoverflow.com/questions/44679439/modulenotfounderror-no-module-named-tensorflow-tensorboard-tensorboard

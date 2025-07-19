@@ -1,5 +1,7 @@
 """
-This file implements a single multithreaded worker that handles a Trackmania game instance and provides rollout results to the learner process.
+Ce fichier contient la configuration pour l'entraînement d'un agent Trackmania.
+Il définit les paramètres d'entraînement, les chemins des cartes, les récompenses, et d'autres configurations nécessaires pour l'agent.
+Il est divisé en plusieurs sections, chacune traitant d'un aspect spécifique de la configuration.
 """
 
 import importlib
@@ -100,9 +102,6 @@ def collector_process_fn(
         inferer.tau_epsilon_boltzmann = config_copy.tau_epsilon_boltzmann
         inferer.is_explo = is_explo
 
-        # ===============================================
-        #   PLAY ONE ROUND
-        # ===============================================
 
         rollout_start_time = time.perf_counter()
 

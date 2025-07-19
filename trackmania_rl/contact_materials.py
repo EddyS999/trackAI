@@ -1,14 +1,10 @@
 """
-List of contact materials defined in the Trackmania game engine.
+liste des matériaux de contact dans Trackmania, utilisés pour la physique du jeu
 """
 
 from enum import Enum
 
-# from Donadigo on TMInterface Discord
 
-
-# Access via ContactMaterial(3).name       -->  Ice
-# Access via ContactMaterial['Ice'].value  --> 3
 class ContactMaterial(Enum):
     Concrete = 0
     Pavement = 1

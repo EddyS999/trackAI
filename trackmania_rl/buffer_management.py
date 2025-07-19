@@ -1,7 +1,5 @@
 """
-This file's main entry point is the function fill_buffer_from_rollout_with_n_steps_rule().
-Its main inputs are a rollout_results object (obtained from a GameInstanceManager object), and a buffer to be filled.
-It reassembles the rollout_results object into transitions, as defined in /trackmania_rl/experience_replay/experience_replay_interface.py
+Ce fichier gère la gestion des buffers d'expérience pour l'entraînement d'un agent Trackmania.
 """
 
 import math
@@ -54,7 +52,7 @@ def fill_buffer_from_rollout_with_n_steps_rule(
 
     gammas = (gamma ** np.linspace(1, n_steps_max, n_steps_max)).astype(
         np.float32
-    )  # Discount factor that will be placed in front of next_step in Bellman equation, depending on n_steps chosen
+    ) 
 
     reward_into = np.zeros(n_frames)
     for i in range(1, n_frames):
@@ -68,22 +66,21 @@ def fill_buffer_from_rollout_with_n_steps_rule(
         ) * config_copy.reward_per_m_advanced_along_centerline
         if i < n_frames - 1:
             if config_copy.final_speed_reward_per_m_per_s != 0 and rollout_results["state_float"][i][58] > 0:
-                # car has velocity *forward*
+               
                 reward_into[i] += config_copy.final_speed_reward_per_m_per_s * (
                     np.linalg.norm(rollout_results["state_float"][i][56:59]) - np.linalg.norm(rollout_results["state_float"][i - 1][56:59])
                 )
             if engineered_speedslide_reward != 0 and np.all(rollout_results["state_float"][i][25:29]):
-                # all wheels touch the ground
+              
                 reward_into[i] += engineered_speedslide_reward * max(
                     0.0,
                     1 - abs(speedslide_quality_tarmac(rollout_results["state_float"][i][56], rollout_results["state_float"][i][58]) - 1),
-                )  # TODO : indices 25:29, 56 and 58 are hardcoded, this is bad....
+                )  
 
-            # lateral speed is higher than 2 meters per second
+         
             reward_into[i] += (
                 engineered_neoslide_reward if abs(rollout_results["state_float"][i][56]) >= 2.0 else 0
-            )  # TODO : 56 is hardcoded, this is bad....
-            # kamikaze reward
+            )  
             if (
                 engineered_kamikaze_reward != 0
                 and rollout_results["actions"][i] <= 2
@@ -95,8 +92,8 @@ def fill_buffer_from_rollout_with_n_steps_rule(
                     config_copy.engineered_reward_min_dist_to_cur_vcp,
                     min(config_copy.engineered_reward_max_dist_to_cur_vcp, np.linalg.norm(rollout_results["state_float"][i][62:65])),
                 )
-    for i in range(n_frames - 1):  # Loop over all frames that were generated
-        # Switch memory buffer sometimes
+    for i in range(n_frames - 1):  
+        
         if random.random() < 0.1:
             list_to_fill = Experiences_For_Buffer_Test if random.random() < config_copy.buffer_test_ratio else Experiences_For_Buffer
 
@@ -116,7 +113,7 @@ def fill_buffer_from_rollout_with_n_steps_rule(
         state_float = rollout_results["state_float"][i]
         state_potential = get_potential(rollout_results["state_float"][i])
 
-        # Get action that was played
+      
         action = rollout_results["actions"][i]
         terminal_actions = float((n_frames - 1) - i) if "race_time" in rollout_results else math.inf
         next_state_has_passed_finish = ((i + n_steps) == (n_frames - 1)) and ("race_time" in rollout_results)
@@ -126,7 +123,7 @@ def fill_buffer_from_rollout_with_n_steps_rule(
             next_state_float = rollout_results["state_float"][i + n_steps]
             next_state_potential = get_potential(rollout_results["state_float"][i + n_steps])
         else:
-            # It doesn't matter what next_state_img and next_state_float contain, as the transition will be forced to be final
+          
             next_state_img = state_img
             next_state_float = state_float
             next_state_potential = 0
